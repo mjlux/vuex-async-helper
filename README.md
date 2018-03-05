@@ -61,6 +61,89 @@ computed: {
 }
 ```
 
+# Advanced Usage
+
+You can also provide other methods to use (default is get)
+
+```javascript
+const register = asyncHelper({
+  name: 'REGISTER',
+  method: 'post'
+  url: 'http://address/of/your/endpoint/register',
+});
+```
+
+And send your payload with the dispatch. i.e. in a signUp component
+
+```javascript
+methods: {
+ sendForm(){
+  const payload = {
+    username: this.username,
+    password: this.password
+  }
+  this.$store.dispatch('REGISTER', payload)
+ }
+}
+```
+
+If you need to alter the recieved data you can provide a successMutation function.  
+This will be executed in the mutation before the data is set into the store.  
+Remember to return the data you want to store
+
+```javascript
+const register = asyncHelper({
+  name: 'REGISTER',
+  method: 'post'
+  url: 'http://address/of/your/endpoint/register',
+  successMutation(state, data){
+    console.log('my recieved data:', data)
+    data.awesome = true
+    console.log('my awesome data:', data)
+    return data
+  }
+});
+```
+
+If you need to alter the recieved error you can provide a errorMutation function.  
+This will be executed in the mutation before the error is set into the store.  
+Remember to return the error you want to store
+
+```javascript
+const register = asyncHelper({
+  name: 'REGISTER',
+  method: 'post'
+  url: 'http://address/of/your/endpoint/register',
+  successMutation(state, data){
+    console.log('my recieved data:', data)
+    data.awesome = true
+    console.log('my awesome data:', data)
+    return data
+  },
+  errorMutation(state, error){
+    console.log('my recieved error:', error)
+    error.pesky = true
+    console.log('my pesky error:', error)
+    return error
+  },
+});
+```
+
+If you need to setup additional axios configuration you can do so by editing the 'axiosConfig' property of your helper  
+Note that you can't just set a new Object as value because 'axiosConfig' is a constant to prevent accidental change of type
+
+```javascript
+const register = asyncHelper({
+  name: 'REGISTER',
+  url: 'http://address/of/your/endpoint/register',
+});
+
+const registerAxiosConfig = register.axiosConfig
+registerAxiosConfig.withCredentials = true
+registerAxiosConfig.headers = { Authorization: 'Bearer mysuperawesomebearertoken' }
+```
+
+
 
 
 
