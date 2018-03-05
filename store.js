@@ -59,21 +59,21 @@ changePasswordAxiosConfig.headers = { 'Authorization': 'Bearer tralalallaaaaa' }
 
 export default new Vuex.Store({
   state: {
-    ...login.mutations,
-    ...logout.mutations,
-    ...register.mutations,
+    ...login.state,
+    ...logout.state,
+    ...register.state,
     ...changePassword.state,
   },
   mutations: {
-    ...login.actions,
-    ...logout.actions,
-    ...register.actions,
+    ...login.mutations,
+    ...logout.mutations,
+    ...register.mutations,
     ...changePassword.mutations,
   },
   actions: {
-    ...login.getters,
-    ...logout.getters,
-    ...register.getters,
+    ...login.actions,
+    ...logout.actions,
+    ...register.actions,
     ...changePassword.actions,
   },
   getters: {
