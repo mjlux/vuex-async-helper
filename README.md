@@ -68,7 +68,7 @@ You can also provide other methods to use (default is get)
 ```javascript
 const register = asyncHelper({
   name: 'REGISTER',
-  method: 'post'
+  method: 'post',
   url: 'http://address/of/your/endpoint/register',
 });
 ```
@@ -94,12 +94,13 @@ Remember to return the data you want to store
 ```javascript
 const register = asyncHelper({
   name: 'REGISTER',
-  method: 'post'
+  method: 'post',
   url: 'http://address/of/your/endpoint/register',
   successMutation(state, data){
     console.log('my recieved data:', data)
     data.awesome = true
     console.log('my awesome data:', data)
+    localStorage.setItem('token', data.token)
     return data
   }
 });
@@ -112,12 +113,13 @@ Remember to return the error you want to store
 ```javascript
 const register = asyncHelper({
   name: 'REGISTER',
-  method: 'post'
+  method: 'post',
   url: 'http://address/of/your/endpoint/register',
   successMutation(state, data){
     console.log('my recieved data:', data)
     data.awesome = true
     console.log('my awesome data:', data)
+    localStorage.setItem('token', data.token)
     return data
   },
   errorMutation(state, error){
